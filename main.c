@@ -571,52 +571,144 @@ void impresionTabla2(struct _departamento *departamentos, int contDept)
 	{
 		printf("%d; %s; %s; %d; %.0f;\n", departamentos[i].idDept, departamentos[i].nombre, departamentos[i].descripcion, departamentos[i].piso, departamentos[i].presupuesto);
 	}
-};
+}
+
+int joinCondition(struct _empleado emp, int col1, struct _departamento dep, int col2)
+{
+	switch (col1)
+	{
+	case 1:			   // id
+		if (col2 == 1) // idDept
+		{
+			return (emp.id == dep.idDept);
+		}
+		else if (col2 == 4) // piso
+		{
+			return (emp.id == dep.piso);
+		}
+		break;
+	case 2:			   // nombre
+		if (col2 == 2) // nombre
+		{
+			if (strcasecmp(emp.nombre, dep.nombre) == 0)
+				return 1;
+		}
+		else if (col2 == 3) // descripcion
+		{
+			if (strcasecmp(emp.nombre, dep.descripcion) == 0)
+				return 1;
+		}
+		break;
+	case 3:			   // apellidos
+		if (col2 == 2) // nombre
+		{
+			if (strcasecmp(emp.apellidos, dep.nombre) == 0)
+				return 1;
+		}
+		else if (col2 == 3) // descripcion
+		{
+			if (strcasecmp(emp.apellidos, dep.descripcion) == 0)
+				return 1;
+		}
+		break;
+	case 4:			   // idDept
+		if (col2 == 1) // idDept
+		{
+			return (emp.idDept == dep.idDept);
+		}
+		else if (col2 == 4) // piso
+		{
+			return (emp.idDept == dep.piso);
+		}
+		break;
+	case 5:			   // fechaNacim
+		if (col2 == 2) // nombre
+		{
+			if (strcasecmp(emp.fechaNacim, dep.nombre) == 0)
+				return 1;
+		}
+		else if (col2 == 3) // descripcion
+		{
+			if (strcasecmp(emp.fechaContrat, dep.descripcion) == 0)
+				return 1;
+		}
+		break;
+	case 6:			   // fechaContrat
+		if (col2 == 2) // nombre
+		{
+			if (strcasecmp(emp.fechaContrat, dep.nombre) == 0)
+				return 1;
+		}
+		else if (col2 == 3) // descripcion
+		{
+			if (strcasecmp(emp.fechaContrat, dep.descripcion) == 0)
+				return 1;
+		}
+		break;
+	case 7:			   // Ciudad
+		if (col2 == 2) // nombre
+		{
+			if (strcasecmp(emp.ciudad, dep.nombre) == 0)
+				return 1;
+		}
+		else if (col2 == 3) // descripcion
+		{
+			if (strcasecmp(emp.ciudad, dep.descripcion) == 0)
+				return 1;
+		}
+		break;
+	default:
+		return 0;
+		break;
+	}
+
+	return 0;
+}
 
 void joinTable(struct _empleado *empleados, int contEmp, int columnas1[9], struct _departamento *departamentos, int contDept, int columnas2[5], int col1, int col2)
 {
 	for (int i = 0; i < contEmp; i++)
 	{
-		if (columnas1[0] == 1)
-		{
-			printf("%d;", empleados[i].id);
-		}
-		if (columnas1[1] == 1)
-		{
-			printf("%s;", empleados[i].nombre);
-		}
-		if (columnas1[2] == 1)
-		{
-			printf("%s;", empleados[i].apellidos);
-		}
-		if (columnas1[3] == 1)
-		{
-			printf("%d;", empleados[i].idDept);
-		}
-		if (columnas1[4] == 1)
-		{
-			printf("%s;", empleados[i].fechaNacim);
-		}
-		if (columnas1[5] == 1)
-		{
-			printf("%s;", empleados[i].fechaContrat);
-		}
-		if (columnas1[6] == 1)
-		{
-			printf("%s;", empleados[i].ciudad);
-		}
-		if (columnas1[7] == 1)
-		{
-			printf("%d;", empleados[i].proyActuales);
-		}
-		if (columnas1[8] == 1)
-		{
-			printf("%0.f;", empleados[i].salario);
-		}
 		for (int j = 0; j < contDept; j++)
 		{
-			if (empleados[i].idDept == departamentos[j].idDept)
+			if (joinCondition(empleados[i], col1, departamentos[j], col2) == 1)
 			{
+				if (columnas1[0] == 1)
+				{
+					printf("%d;", empleados[i].id);
+				}
+				if (columnas1[1] == 1)
+				{
+					printf("%s;", empleados[i].nombre);
+				}
+				if (columnas1[2] == 1)
+				{
+					printf("%s;", empleados[i].apellidos);
+				}
+				if (columnas1[3] == 1)
+				{
+					printf("%d;", empleados[i].idDept);
+				}
+				if (columnas1[4] == 1)
+				{
+					printf("%s;", empleados[i].fechaNacim);
+				}
+				if (columnas1[5] == 1)
+				{
+					printf("%s;", empleados[i].fechaContrat);
+				}
+				if (columnas1[6] == 1)
+				{
+					printf("%s;", empleados[i].ciudad);
+				}
+				if (columnas1[7] == 1)
+				{
+					printf("%d;", empleados[i].proyActuales);
+				}
+				if (columnas1[8] == 1)
+				{
+					printf("%0.f;", empleados[i].salario);
+				}
 				if (columnas2[0] == 1)
 				{
 					printf("%d;", departamentos[j].idDept);
@@ -638,9 +730,9 @@ void joinTable(struct _empleado *empleados, int contEmp, int columnas1[9], struc
 					printf("%0.f;", departamentos[j].presupuesto);
 				}
 				break;
+				printf("\n");
 			}
 		}
-		printf("\n");
 	}
 }
 
